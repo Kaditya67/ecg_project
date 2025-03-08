@@ -1,0 +1,41 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+*.env
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+*.sqlite3
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Migrations (optional - keep if you track migrations)
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Node (if using React/Next.js frontend)
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# Deployment
+*.tar.gz
+*.zip
+*.pem
