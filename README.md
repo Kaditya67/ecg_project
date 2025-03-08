@@ -1,16 +1,53 @@
-# ecg_app
+# 📲 ECG Monitoring App
 
-A new Flutter project.
+A **Flutter** mobile application that reads ECG pulse data from an ECG sensor, processes it, and provides real-time visualizations along with AI-based analysis.
 
-## Getting Started
+## 🚀 Features
+- **Real-time ECG Data Visualization** using `fl_chart`.
+- **Bluetooth/Serial Communication** for data acquisition.
+- **AI/ML-based Analysis** for detecting anomalies.
+- **Heart Rate Calculation (BPM)**
+- **History & Reports** for tracking ECG trends.
+- **User Authentication & Profiles** (Future scope).
 
-This project is a starting point for a Flutter application.
+## 🛠️ Installation & Setup
 
-A few resources to get you started if this is your first Flutter project:
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/yourusername/ecg-monitor.git
+cd ecg-monitor
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 2️⃣ Install Dependencies
+```bash
+flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 3️⃣ Run the Application
+```bash
+flutter run
+```
+Make sure a device or emulator is connected.
+
+## 📡 Connecting to ECG Sensor
+- Ensure the **Arduino Nano** and **ECG AD8232 Sensor** are properly set up.
+- Modify the `ApiService` class to fetch data from your hardware.
+- Use Bluetooth/Serial communication if required.
+
+## 📚 Dependencies
+- `fl_chart` (for ECG graph visualization)
+- `provider` (state management)
+- `http` (for API communication)
+
+## 🏗️ Future Enhancements
+- **Cloud Sync & User Authentication**
+- **Advanced AI Analysis for Arrhythmia Detection**
+- **Custom Alerts & Notifications**
+
+## 📜 License
+This project is open-source under the MIT License.
+
+---
+
+⚡ *Developed with Flutter ❤️ for better ECG Monitoring!*
+
