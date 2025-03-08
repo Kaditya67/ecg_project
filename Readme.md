@@ -1,20 +1,19 @@
-# 📌 Attendance Management System - Django Backend
+# 📌 ECG System - Django Backend
 
-This is the backend for the **Attendance Management System**, built using **Django & Django REST Framework (DRF)**. It provides APIs for managing attendance, users, and authentication.
+This is the backend for the **ECG System**, built using **Django & Django REST Framework (DRF)**. It provides APIs for connecting hardware ecg reader to mobile application.
 
 ## 🚀 Features
 - User authentication (Login/Register)
-- Attendance tracking (Check-in/Check-out)
 - API-based data access
 - Integration with the Flutter mobile app
-- Admin panel for user & attendance management
+- Admin panel for user & ecg tracking
 
 ## 🛠️ Installation & Setup
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/yourusername/attendance-django.git
-cd attendance-django
+git clone https://github.com/Kaditya67/ecg_project.git
+cd ecg_backend
 ```
 
 ### 2️⃣ Create & Activate Virtual Environment
