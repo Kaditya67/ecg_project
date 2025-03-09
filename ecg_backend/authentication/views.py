@@ -1,57 +1,37 @@
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
-from django.http import JsonResponse
-from rest_framework.decorators import api_view
 from .models import UserProfile
+from .serializers import UserRegistrationSerializer
 
-@api_view(['POST'])
-def register_user(request):
-    try:
-        data = request.data
+class RegisterUserView(APIView):
+    def post(self, request):
+        print(request.data)
+        serializer = UserRegistrationSerializer(data=request.data)
 
-        # Check if username already exists
-        if User.objects.filter(username=data["username"]).exists():
-            return JsonResponse({"success": False, "message": "Username already taken"}, status=400)
+        if serializer.is_valid():
+            serializer.save()  # Calls create() in serializer
+            return Response({"success": True, "message": "User registered successfully!"}, status=status.HTTP_201_CREATED)
 
-        # Create User
-        user = User.objects.create(
-            username=data["username"],
-            password=make_password(data["password"]),  # Hash the password
-            email=data["email"],
-            first_name=data["first_name"],
-            last_name=data["last_name"]
-        )
-
-        # Create User Profile
-        UserProfile.objects.create(
-            user=user,
-            contact=data["contact"],
-            full_name=f"{data['first_name']} {data['last_name']}",
-            date_of_birth=data.get("date_of_birth"),
-            address=data.get("address")
-        )
-
-        return JsonResponse({"success": True, "message": "User registered successfully!"}, status=201)
-
-    except Exception as e:
-        return JsonResponse({"success": False, "message": str(e)}, status=400)
+        return Response({"success": False, "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
-def get_user_profile(request, username):
-    try:
-        user = User.objects.get(username=username)
-        profile = user.profile
+class GetUserProfileView(APIView):
+    def get(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            profile = user.profile
 
-        return JsonResponse({
-            "success": True,
-            "username": user.username,
-            "email": user.email,
-            "full_name": profile.full_name,
-            "contact": profile.contact,
-            "date_of_birth": profile.date_of_birth,
-            "address": profile.address
-        }, status=200)
+            return Response({
+                "success": True,
+                "username": user.username,
+                "email": user.email,
+                "full_name": profile.full_name,
+                "contact": profile.contact,
+                "date_of_birth": profile.date_of_birth.strftime('%Y-%m-%d') if profile.date_of_birth else None,
+                "address": profile.address
+            }, status=status.HTTP_200_OK)
 
-    except User.DoesNotExist:
-        return JsonResponse({"success": False, "message": "User not found"}, status=404)
+        except User.DoesNotExist:
+            return Response({"success": False, "message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
