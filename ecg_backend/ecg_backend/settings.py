@@ -44,7 +44,11 @@ INSTALLED_APPS = [
 
     # Custom app
     'ecg',
+    'authentication',
 ]
+
+# Remove or comment this line if it exists
+# AUTH_USER_MODEL = "authentication.CustomUser"
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', # cors
