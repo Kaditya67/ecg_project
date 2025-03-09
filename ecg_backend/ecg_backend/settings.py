@@ -40,12 +40,19 @@ INSTALLED_APPS = [
 
     # Third-party apps
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
 
     # Custom app
     'ecg',
     'authentication',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 # Remove or comment this line if it exists
 # AUTH_USER_MODEL = "authentication.CustomUser"
