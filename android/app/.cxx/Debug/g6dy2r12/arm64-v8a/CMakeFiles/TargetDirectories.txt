@@ -1,0 +1,2 @@
+C:/Users/gauta/OneDrive/Desktop/mad/android/app/.cxx/Debug/g6dy2r12/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/gauta/OneDrive/Desktop/mad/android/app/.cxx/Debug/g6dy2r12/arm64-v8a/CMakeFiles/rebuild_cache.dir
