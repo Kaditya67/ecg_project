@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Hospital App',
+      title: 'HealthCare AI',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         textTheme: GoogleFonts.poppinsTextTheme(),
@@ -41,21 +41,29 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Hospital App',
+          'HealthCare AI',
           style: GoogleFonts.poppins(
             fontSize: 22,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.blue[800],
           ),
         ),
-        centerTitle: true,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue[800]!, Colors.blue[600]!],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+        centerTitle: false, // Align title to the left
+        backgroundColor: Colors.white, // Match body color
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: CircleAvatar(
+              radius: 20,
+              child: Icon(Icons.person, color: Colors.white), // Fallback icon
             ),
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: Container(
+            color: Colors.grey[300], // Border color
+            height: 1, // Border thickness
           ),
         ),
       ),
@@ -82,24 +90,66 @@ class _DashboardState extends State<Dashboard> {
         ),
         blur: 10,
         color: Colors.white.withOpacity(0.2),
-        child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.transparent,
-          selectedItemColor: Colors.blue[800],
-          unselectedItemColor: Colors.grey[600],
-          elevation: 0,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: "Dashboard"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-            BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Report"),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+        child: Container(
+          height: 70,
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildNavItem(Icons.dashboard, "Dashboard", 0),
+              _buildNavItem(Icons.person, "Profile", 1),
+              _buildNavItem(Icons.bar_chart, "Report", 2),
+              _buildNavItem(Icons.settings, "Settings", 3),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, int index) {
+    bool isSelected = _selectedIndex == index;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.blue[800] : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: Colors.blue[800]!.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: Offset(0, 5),
+                  ),
+                ]
+              : [],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 24,
+              color: isSelected ? Colors.white : Colors.grey[600],
+            ),
+            SizedBox(height: 4),
+            Text(
+              label,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: isSelected ? Colors.white : Colors.grey[600],
+              ),
+            ),
           ],
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
         ),
       ),
     );
@@ -159,7 +209,7 @@ class ProfileContent extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage('assets/placeholder.png'),
+                child: Icon(Icons.person, size: 48, color: Colors.white),
               ),
               SizedBox(height: 16),
               Text('Dr. John Doe', style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)),
